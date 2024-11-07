@@ -60,7 +60,7 @@ jobs:
           echo $OUTPUT
           echo "CONDA_BUILD_OUTPUT=$OUTPUT" >> $GITHUB_ENV
       - name: Upload build artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: built_package
           path: ${{ env.CONDA_BUILD_OUTPUT }}
@@ -94,7 +94,7 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Download build artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: built_package
           path: ./artifact_storage
@@ -125,7 +125,7 @@ jobs:
       AC_LABEL: dev
     steps:
       - name: Download build artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: built_package
           path: ./artifact_storage
