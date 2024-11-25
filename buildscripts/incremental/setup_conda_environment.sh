@@ -23,10 +23,6 @@ PIP_INSTALL="pip install -q"
 source deactivate
 # Display root environment (for debugging)
 conda list
-# Clean up any left-over from a previous build
-# (note workaround for https://github.com/conda/conda/issues/2679:
-#  `conda env remove` issue)
-conda remove --all -q -y -n $CONDA_ENV
 
 # Create a base env
 conda create -n $CONDA_ENV -q -y python=$PYTHON numpy=$NUMPY scipy=$SCIPY pip
