@@ -1,0 +1,39 @@
+name: Dependabot helper
+on: pull_request
+
+permissions:
+  pull-requests: write
+  issues: write
+  contents: write
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'numba/numba-scipy'
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.head_ref }}
+
+      - name: Scipy check
+        if: contains(steps.metadata.outputs.dependency-names, 'scipy')
+        shell: bash -l {0}
+        run: |
+          prev_version=${{ steps.metadata.outputs.previous-version }}
+          new_version=${{ steps.metadata.outputs.new-version }}
+          sed -i s/$prev_version/$new_version/g .github/workflows/test_and_deploy.yml buildscripts/conda_recipes/numba-scipy/meta.yaml
+          git config user.email "49699333+dependabot[bot]@users.noreply.github.com"
+          git config user.name "dependabot[bot]"
+          git add .github/workflows/test_and_deploy.yml buildscripts/conda_recipes/numba-scipy/meta.yaml
+          if [[ -n $(git status --porcelain) ]] ; then
+            git commit -m "Updated scipy in build scripts"
+            git push
+          fi

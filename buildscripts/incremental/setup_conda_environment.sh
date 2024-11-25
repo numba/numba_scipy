@@ -23,10 +23,6 @@ PIP_INSTALL="pip install -q"
 source deactivate
 # Display root environment (for debugging)
 conda list
-# Clean up any left-over from a previous build
-# (note workaround for https://github.com/conda/conda/issues/2679:
-#  `conda env remove` issue)
-conda remove --all -q -y -n $CONDA_ENV
 
 # Create a base env
 conda create -n $CONDA_ENV -q -y python=$PYTHON numpy=$NUMPY scipy=$SCIPY pip
@@ -36,20 +32,7 @@ set +v
 source activate $CONDA_ENV
 set -v
 
-# 32bit linux needs the numba channel to get a conda package as the distro
-# channels stopped shipping for 32bit linux packages, this branching is
-# superfluous but sets up for adding later conditional package installation.
-if [[ $(uname) == Linux ]]; then
-    if [[ "$CONDA_SUBDIR" == "linux-32" || "$BITS32" == "yes" ]] ; then
-        $CONDA_INSTALL -c numba numba
-        # Work around https://github.com/pytest-dev/pytest/issues/3280
-        $CONDA_INSTALL pytest attrs==19.1.0
-    else
-        $CONDA_INSTALL numba pytest
-    fi
-elif  [[ $(uname) == Darwin ]]; then
-    $CONDA_INSTALL numba pytest
-fi
+$CONDA_INSTALL numba pytest
 
 # environment dump for debug
 echo "-------------------------------------------------------------------------"

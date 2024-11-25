@@ -5,7 +5,6 @@ from . import signatures
 
 
 def choose_kernel(name, all_signatures):
-
     def choice_function(*args):
         for signature in all_signatures:
             if args == signature:

@@ -23,3 +23,5 @@ htmlcov/
 .vscode/
 .ipynb_checkpoints/
 __pycache__/
+
+numba_scipy/_version.py

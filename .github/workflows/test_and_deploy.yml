@@ -18,8 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        scipy-version: [">=1.4,<1.11.0"]
-        numpy-version: ["<1.22.0", ">=1.22.0"]
+        scipy-version: [">=1.4,<=1.14.1"]
+        numpy-version: [">=1.22.0"]
     steps:
       - name: Install glibc-tools
         shell: bash -l {0}
@@ -40,12 +40,13 @@ jobs:
       - name: Install dependencies
         shell: bash -l {0}
         run: |
-          conda install -c numba conda-build python=${{ env.MAIN_PYVER }} numba>=0.45 'scipy${{ matrix.scipy-version }}' 'numpy${{ matrix.numpy-version }}' flake8 pytest pip
+          conda install -c numba conda-build python=${{ env.MAIN_PYVER }} numba>=0.45 'scipy${{ matrix.scipy-version }}' 'numpy${{ matrix.numpy-version }}' ruff pytest pip
           pip install --no-deps -e .
-      - name: Lint with flake8
+      - name: Lint
         shell: bash -l {0}
         run: |
-          flake8 numba_scipy
+          ruff check .
+          ruff format .
       - name: Pytest
         shell: bash -l {0}
         run: |
@@ -70,26 +71,10 @@ jobs:
     needs: build
     strategy:
       matrix:
-        scipy-version: [">=1.4,<1.11.0"]
-        pyver: [3.8, 3.9, "3.10", 3.11]
+        scipy-version: [">=1.4,<=1.14.1"]
+        pyver: [3.9, "3.10", 3.11, 3.12]
         runs-on: [macos-latest, ubuntu-latest, windows-latest]
-        numpy-version: ["<1.22.0", ">=1.22.0"]
-        exclude:
-          - pyver: 3.11
-            numpy-version: "<1.22.0"
-        include:
-          - pyver: 3.8
-            scipy-version: ">=0.16,<1.4"
-            numpy-version: "<1.22.0"
-            runs-on: macos-latest
-          - pyver: 3.8
-            scipy-version: ">=0.16,<1.4"
-            numpy-version: "<1.22.0"
-            runs-on: ubuntu-latest
-          - pyver: 3.8
-            scipy-version: ">=0.16,<1.4"
-            numpy-version: "<1.22.0"
-            runs-on: windows-latest
+        numpy-version: [">=1.22.0"]
 
     runs-on: ${{ matrix.runs-on }}
     steps:

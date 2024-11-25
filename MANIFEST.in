@@ -1,5 +1,0 @@
-include MANIFEST.in
-include README.rst LICENSE
-
-include versioneer.py
-include numba_scipy/_version.py

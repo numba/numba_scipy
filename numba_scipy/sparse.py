@@ -122,7 +122,6 @@ class CSCMatrixModel(models.StructModel):
 @unbox(CSCMatrixType)
 @unbox(CSRMatrixType)
 def unbox_matrix(typ, obj, c):
-
     struct_ptr = cgutils.create_struct_proxy(typ)(c.context, c.builder)
 
     data = c.pyapi.object_getattr_string(obj, "data")
@@ -151,7 +150,9 @@ def unbox_matrix(typ, obj, c):
 @box(CSCMatrixType)
 @box(CSRMatrixType)
 def box_matrix(typ, val, c):
-    struct_ptr = cgutils.create_struct_proxy(typ)(c.context, c.builder, value=val)
+    struct_ptr = cgutils.create_struct_proxy(typ)(
+        c.context, c.builder, value=val
+    )
 
     data_obj = c.box(typ.data, struct_ptr.data)
     indices_obj = c.box(typ.indices, struct_ptr.indices)
@@ -184,7 +185,6 @@ def overload_sparse_shape(x):
 
 @overload_attribute(CSMatrixType, "ndim")
 def overload_sparse_ndim(inst):
-
     if not isinstance(inst, CSMatrixType):
         return
 
@@ -204,7 +204,12 @@ def _sparse_copy(typingctx, inst, data, indices, indptr, shape):
         struct.indices = indices
         struct.indptr = indptr
         struct.shape = shape
-        return impl_ret_borrowed(context, builder, sig.return_type, struct._getvalue(),)
+        return impl_ret_borrowed(
+            context,
+            builder,
+            sig.return_type,
+            struct._getvalue(),
+        )
 
     sig = inst(inst, inst.data, inst.indices, inst.indptr, inst.shape)
 
@@ -213,13 +218,16 @@ def _sparse_copy(typingctx, inst, data, indices, indptr, shape):
 
 @overload_method(CSMatrixType, "copy")
 def overload_sparse_copy(inst):
-
     if not isinstance(inst, CSMatrixType):
         return
 
     def copy(inst):
         return _sparse_copy(
-            inst, inst.data.copy(), inst.indices.copy(), inst.indptr.copy(), inst.shape
+            inst,
+            inst.data.copy(),
+            inst.indices.copy(),
+            inst.indptr.copy(),
+            inst.shape,
         )
 
     return copy

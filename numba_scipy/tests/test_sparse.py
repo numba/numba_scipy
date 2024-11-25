@@ -73,7 +73,9 @@ def test_sparse_copy():
     def test_fn(x):
         y = x.copy()
         return (
-            y is not x and np.all(x.data == y.data) and np.all(x.indices == y.indices)
+            y is not x
+            and np.all(x.data == y.data)
+            and np.all(x.indices == y.indices)
         )
 
     x_val = scipy.sparse.csr_matrix(np.eye(100))

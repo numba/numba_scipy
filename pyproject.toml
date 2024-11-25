@@ -1,0 +1,71 @@
+[build-system]
+requires      = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source           = "vcs"
+fallback-version = "0.0.0"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "numba_scipy/_version.py"
+
+[project]
+name = "numba-scipy"
+authors = [{ name = "Anaconda, Inc.", email = "numba-users@continuum.io" }]
+description = "numba-scipy extends Numba to make it aware of SciPy"
+dynamic = ['version']
+readme = "README.rst"
+license = "BSD-2-Clause"
+requires-python = ">=3.9"
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: BSD License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Compilers",
+]
+
+dependencies = ["scipy>=0.16,<=1.14.1", "numba>=0.45"]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "sphinx"]
+
+[project.urls]
+Source        = "https://github.com/numba/numba-scipy"
+
+[project.entry-points.numba_extensions]
+init = "numba_scipy:_init_extension"
+
+
+[tool.ruff]
+target-version = "py39"
+line-length = 80
+output-format = "concise"
+exclude = [
+    "__pycache__",
+    ".git",
+    "*.pyc",
+    "*~",
+    "*.o",
+    "*.so",
+    "*.cpp",
+    "*.c",
+    "*.h",
+    "__init__.py",
+]
+
+[tool.ruff.lint]
+ignore = [
+    "E20",  # Extra space in brackets
+    "E231", # Multiple spaces around ","
+    "E241",
+    "E26", # Comments
+    "E501", # line too long
+    "E731", # Assigning lambda expression
+    "E741", # Ambiguous variable names
+]
