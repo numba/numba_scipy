@@ -17,8 +17,8 @@ try:
     import numba_scipy
 except ImportError:
     # Numba is run from its source checkout
-    sys.path.insert(0, os.path.abspath('../..'))
-    import numba
+    sys.path.insert(0, os.path.abspath("../.."))
+    import numba  # noqa: F401
     import numba_scipy
 
 
