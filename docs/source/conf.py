@@ -100,7 +100,7 @@ intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
     "numpy": ("http://docs.scipy.org/doc/numpy", None),
     "scipy": ("https://docs.scipy.org/doc/scipy/reference/", None),
-    "numba": ("http://numba.pydata.org/numba-doc/latest", None),
+    "numba": ("https://numba.readthedocs.io/en/stable/index.html", None),
     "llvmlite": ("http://llvmlite.pydata.org/en/latest/", None),
 }
 
@@ -112,4 +112,4 @@ numpydoc_show_class_members = False
 
 
 def setup(app):
-    app.add_stylesheet("numba-scipy-docs.css")
+    app.add_css_file("numba-scipy-docs.css")
