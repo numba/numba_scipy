@@ -30,7 +30,7 @@ classifiers = [
   "Topic :: Software Development :: Compilers",
 ]
 
-dependencies = ["scipy>=0.16", "numba>=0.45"]
+dependencies = ["scipy>=0.16,<=1.14.1", "numba>=0.45"]
 
 [project.optional-dependencies]
 dev = ["pytest", "ruff", "sphinx"]
