@@ -35,20 +35,20 @@ except ImportError:
 
 # -- Project information -----------------------------------------------------
 
-project = u'numba-scipy'
-copyright = u'2019, Anaconda, Inc.'
-author = u'Anaconda, Inc.'
+project = "numba-scipy"
+copyright = "2019, Anaconda, Inc."
+author = "Anaconda, Inc."
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
-version = '.'.join(numba_scipy.__version__.split('.')[:2])
+version = ".".join(numba_scipy.__version__.split(".")[:2])
 # The full version, including alpha/beta/rc tags.
 release = numba_scipy.__version__
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = "sphinx"
 
 # -- General configuration ---------------------------------------------------
 
@@ -56,12 +56,12 @@ pygments_style = 'sphinx'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.autodoc',
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.autodoc",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['../_templates']
+templates_path = ["../_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -75,13 +75,13 @@ exclude_patterns = []
 # a list of builtin themes.
 #
 # pip install sphinx_bootstrap_theme
-html_theme = 'bootstrap'
+html_theme = "bootstrap"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-  'bootswatch_theme': "paper",
+    "bootswatch_theme": "paper",
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -90,19 +90,19 @@ html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['../_static']
+html_static_path = ["../_static"]
 
 
 # -- Intersphinx -------------------------------------------------------------
 # Configuration for intersphinx: refer to the Python standard library
 # and the Numpy documentation.
 intersphinx_mapping = {
-    'python': ('https://docs.python.org/3', None),
-    'numpy': ('http://docs.scipy.org/doc/numpy', None),
-    'scipy': ('https://docs.scipy.org/doc/scipy/reference/', None),
-    'numba': ('http://numba.pydata.org/numba-doc/latest', None),
-    'llvmlite': ('http://llvmlite.pydata.org/en/latest/', None),
-    }
+    "python": ("https://docs.python.org/3", None),
+    "numpy": ("http://docs.scipy.org/doc/numpy", None),
+    "scipy": ("https://docs.scipy.org/doc/scipy/reference/", None),
+    "numba": ("http://numba.pydata.org/numba-doc/latest", None),
+    "llvmlite": ("http://llvmlite.pydata.org/en/latest/", None),
+}
 
 
 # numpydoc options
