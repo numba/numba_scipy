@@ -1,3 +1,14 @@
+[build-system]
+requires      = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source           = "vcs"
+fallback-version = "0.0.0"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "numba_scipy/_version.py"
+
 [project]
 name = "numba-scipy"
 authors = [{ name = "Anaconda, Inc.", email = "numba-users@continuum.io" }]
