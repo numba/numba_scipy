@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         scipy-version: [">=1.4,<1.11.0"]
-        numpy-version: ["<1.22.0", ">=1.22.0"]
+        numpy-version: [">=1.22.0"]
     steps:
       - name: Install glibc-tools
         shell: bash -l {0}
@@ -72,25 +72,9 @@ jobs:
     strategy:
       matrix:
         scipy-version: [">=1.4,<1.11.0"]
-        pyver: [3.8, 3.9, "3.10", 3.11]
+        pyver: [3.9, "3.10", 3.11, 3.12]
         runs-on: [macos-latest, ubuntu-latest, windows-latest]
-        numpy-version: ["<1.22.0", ">=1.22.0"]
-        exclude:
-          - pyver: 3.11
-            numpy-version: "<1.22.0"
-        include:
-          - pyver: 3.8
-            scipy-version: ">=0.16,<1.4"
-            numpy-version: "<1.22.0"
-            runs-on: macos-latest
-          - pyver: 3.8
-            scipy-version: ">=0.16,<1.4"
-            numpy-version: "<1.22.0"
-            runs-on: ubuntu-latest
-          - pyver: 3.8
-            scipy-version: ">=0.16,<1.4"
-            numpy-version: "<1.22.0"
-            runs-on: windows-latest
+        numpy-version: [">=1.22.0"]
 
     runs-on: ${{ matrix.runs-on }}
     steps:
